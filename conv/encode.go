@@ -1,6 +1,7 @@
 package conv
 
 import (
+	"github.com/shopspring/decimal"
 	"net"
 	"net/netip"
 	"net/url"
@@ -49,6 +50,10 @@ func AddrToString(v netip.Addr) string { return v.String() }
 
 func URLToString(v url.URL) string { return v.String() }
 
+func DecimalToString(v decimal.Decimal) string {
+	return v.String()
+}
+
 func StringIntToString(v int) string     { return strconv.FormatInt(int64(v), 10) }
 func StringInt8ToString(v int8) string   { return strconv.FormatInt(int64(v), 10) }
 func StringInt16ToString(v int16) string { return strconv.FormatInt(int64(v), 10) }
@@ -63,6 +68,8 @@ func StringUint64ToString(v uint64) string { return strconv.FormatUint(v, 10) }
 
 func StringFloat32ToString(v float32) string { return strconv.FormatFloat(float64(v), 'g', 10, 32) }
 func StringFloat64ToString(v float64) string { return strconv.FormatFloat(v, 'g', 10, 64) }
+
+func StringDecimalToString(v decimal.Decimal) string { return v.String() }
 
 func encodeArray[T any](vs []T, encode func(T) string) []string {
 	strs := make([]string, len(vs))
@@ -110,4 +117,8 @@ func UUIDArrayToString(vs []uuid.UUID) []string {
 
 func MACArrayToString(vs []net.HardwareAddr) []string {
 	return encodeArray(vs, MACToString)
+}
+
+func DecimalArrayToString(vs []decimal.Decimal) []string {
+	return encodeArray(vs, DecimalToString)
 }

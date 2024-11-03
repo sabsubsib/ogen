@@ -1,6 +1,7 @@
 package conv
 
 import (
+	"github.com/shopspring/decimal"
 	"net"
 	"net/netip"
 	"net/url"
@@ -147,6 +148,11 @@ func ToDuration(s string) (time.Duration, error) {
 	return time.ParseDuration(s)
 }
 
+func ToDecimal(s string) (decimal.Decimal, error) {
+	v, err := decimal.NewFromString(s)
+	return v, err
+}
+
 func ToStringInt(s string) (int, error) {
 	return strconv.Atoi(s)
 }
@@ -203,6 +209,11 @@ func ToStringFloat64(s string) (float64, error) {
 	return strconv.ParseFloat(s, 64)
 }
 
+func ToStringDecimal(s string) (decimal.Decimal, error) {
+	v, err := decimal.NewFromString(s)
+	return v, err
+}
+
 func decodeArray[T any](a []string, decode func(string) (T, error)) ([]T, error) {
 	arr := make([]T, len(a))
 	for i := range a {
@@ -253,4 +264,8 @@ func ToUUIDArray(a []string) ([]uuid.UUID, error) {
 
 func ToMACArray(a []string) ([]net.HardwareAddr, error) {
 	return decodeArray(a, ToMAC)
+}
+
+func ToDecimalArray(a []string) ([]decimal.Decimal, error) {
+	return decodeArray(a, ToDecimal)
 }

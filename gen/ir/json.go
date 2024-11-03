@@ -163,6 +163,8 @@ func (j JSON) Format() string {
 		return "MAC"
 	case "uri":
 		return "URI"
+	case "decimal":
+		return "Decimal"
 	case "int", "int8", "int16", "int32", "int64",
 		"uint", "uint8", "uint16", "uint32", "uint64",
 		"float32", "float64":
@@ -249,7 +251,7 @@ func jsonType(t *Type) string {
 			return "Number"
 		}
 		return "String"
-	case String, Duration, UUID, MAC, IP, URL, ByteSlice:
+	case String, Duration, UUID, MAC, IP, URL, ByteSlice, Decimal:
 		return "String"
 	case Null:
 		return "Null"

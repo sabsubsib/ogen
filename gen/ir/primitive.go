@@ -52,6 +52,8 @@ func (p PrimitiveType) String() string {
 		return "url.URL"
 	case File:
 		return "ht.MultipartFile"
+	case Decimal:
+		return "decimal.Decimal"
 	case Custom:
 		return "<custom>"
 	default:
@@ -89,5 +91,6 @@ const (
 	IP
 	URL
 	File
+	Decimal
 	Custom
 )
