@@ -1,13 +1,14 @@
 package conv
 
 import (
-	"github.com/shopspring/decimal"
 	"net"
 	"net/netip"
 	"net/url"
 	"slices"
 	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/google/uuid"
 )

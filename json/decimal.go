@@ -6,29 +6,27 @@ import (
 )
 
 func EncodeDecimal(e *jx.Encoder, v decimal.Decimal) {
-	e.Raw([]byte(v.String()))
+	bytes, _ := v.MarshalJSON()
+	e.Raw(bytes)
 }
 
 func DecodeDecimal(d *jx.Decoder) (v decimal.Decimal, err error) {
-	str, err := d.Str()
+	bytes, err := d.Raw()
 	if err != nil {
 		return v, err
 	}
 
-	return decimal.NewFromString(str)
+	err = v.UnmarshalJSON(bytes)
+
+	return v, err
 }
 
 func EncodeStringDecimal(e *jx.Encoder, v string) {
-	e.Raw([]byte("\"" + e.String() + "\""))
+	EncodeDecimal(e, decimal.RequireFromString(v))
 }
 
 func DecodeStringDecimal(d *jx.Decoder) (v decimal.Decimal, err error) {
-	str, err := d.StrBytes()
-	if err != nil {
-		return v, err
-	}
-
-	return decimal.NewFromString(unquote(str))
+	return DecodeDecimal(d)
 }
 
 func unquote(bytes []byte) string {
